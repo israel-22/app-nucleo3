@@ -1,7 +1,7 @@
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { NavigationContainer } from '@react-navigation/native';
-import BienvenidoScreen from '../screens/BienvenidoScreen';
-import PaginaScreen from '../screens/PaginaScreen';
+import GameScreen from '../screens/GameScreen';
+import ScoreScreen from '../screens/ScoreScreen';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -9,11 +9,10 @@ const Tab = createMaterialTopTabNavigator();
 function MyTab(){
     return(
 <Tab.Navigator > 
- 
-<Tab.Screen name= 'Bienvenido' component ={BienvenidoScreen} />
-<Tab.Screen name= 'pagina' component ={PaginaScreen} />
+<Tab.Screen name= 'Bienvenido' component ={GameScreen} />
+<Tab.Screen name= 'pagina' component ={ScoreScreen} />
 </Tab.Navigator>
-    )
+  )
 }
 
 export default function MainNavigator(){
@@ -21,8 +20,6 @@ export default function MainNavigator(){
     <NavigationContainer>
         <MyTab />
     </NavigationContainer>
-
-
   )
 
 }
