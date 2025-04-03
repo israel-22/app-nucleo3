@@ -7,7 +7,7 @@ export default function ListGames( props:any) {
 
       <Text>{props.name.titulo}</Text>
       <Image 
-      source={props.name.imagen}
+      source={{ uri: props.name.imagen }}
       style={styles.img} 
       
       />
