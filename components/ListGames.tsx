@@ -1,43 +1,65 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React from 'react'
+import { Button, Image, Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import React, { useState } from 'react'
 import { Ionicons } from '@expo/vector-icons';
-import ScoreScreen from '../screens/ScoreScreen';
 
 export default function ListGames( props:any) {
 
-const renderStars=(rating:number)=>{
-  if (!rating || isNaN(rating)) return <Text style={{ color: '#ccc' }}>Sin calificación</Text>; 
+  const [modalVisible, setModalVisible] = useState(false);
 
-const stars=[];
-const roundedRating = Math.round(rating * 10) / 10; 
-const fullStars = Math.floor(roundedRating); 
-const hasHalfStar = roundedRating - fullStars >= 0.5; 
-const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0); 
+  // Función para calcular el promedio de puntuaciones
+  const getAverageRating = (opiniones: any) => {
+    let totalPuntos = 0;
+    let totalResenias = 0;
 
+    if (opiniones.opiniones_positivas) {
+      opiniones.opiniones_positivas.detalles.forEach((opinion: any) => {
+        totalPuntos += opinion.detalles_usuario.puntuacion;
+        totalResenias++;
+      });
+    }
 
-//funcion para agregar estrellas completas
-for (let i = 0; i < fullStars; i++) {
-  stars.push(<Ionicons key={`full-${i}`} name="star" size={20} color="#FFD700" />);
-}
+    if (opiniones.opiniones_negativas) {
+      opiniones.opiniones_negativas.detalles.forEach((opinion: any) => {
+        totalPuntos += opinion.detalles_usuario.puntuacion;
+        totalResenias++;
+      });
+    }
 
-// Media estrella si aplica
-if (hasHalfStar) {
-  stars.push(<Ionicons key="half" name="star-half" size={20} color="#FFD700" />);
-}
+    return totalResenias > 0 ? totalPuntos / totalResenias : 0; 
+  };
 
-// Estrellas vacías
-for (let i = 0; i < emptyStars; i++) {
-  stars.push(<Ionicons key={`empty-${i}`} name="star-outline" size={20} color="#ccc" />);
-}
+  const averageRating = getAverageRating(props.name.opiniones);
 
-return stars;
-};
+  // Función para renderizar estrellas
+  const renderStars = (rating: number) => {
+    if (!rating || isNaN(rating)) return <Text style={{ color: '#ccc' }}>Sin calificación</Text>; 
 
+    const stars = [];
+    const roundedRating = Math.round(rating * 10) / 10;
+    const fullStars = Math.floor(roundedRating);
+    const hasHalfStar = roundedRating - fullStars >= 0.5;
+    const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+
+    for (let i = 0; i < fullStars; i++) {
+      stars.push(<Ionicons key={`full-${i}`} name="star" size={20} color="#FFD700" />);
+    }
+
+    if (hasHalfStar) {
+      stars.push(<Ionicons key="half" name="star-half" size={20} color="#FFD700" />);
+    }
+
+    for (let i = 0; i < emptyStars; i++) {
+      stars.push(<Ionicons key={`empty-${i}`} name="star-outline" size={20} color="#ccc" />);
+    }
+
+    return stars;
+  };
 
 
   return (
     <View style={styles.container} >
-    <TouchableOpacity  >
+    <TouchableOpacity  onPress={() => setModalVisible(true)} >
+
       <Image source={{ uri: props.name.imagen }} style={styles.img}/>
       <View style={styles.infoContainer} >
       <Text style={styles.details}>codigo :{props.name.id}</Text>
@@ -55,6 +77,21 @@ return stars;
       <Text style={styles.genre}>{props.name.genero}</Text>
       </View>
     </TouchableOpacity>
+      
+    <Modal visible={modalVisible}>
+     <Text>Hola soy modal</Text>
+     <Image source={{ uri: props.name.imagen }} style={styles.img}/>
+      <Text style={styles.details}>codigo :{props.name.id}</Text>
+      <Text style={styles.title}>{props.name.titulo}</Text>
+      <Text style={styles.details}>🎮{props.name.plataforma}</Text>
+      <Text style={styles.details}>📅 {props.name.lanzamiento}</Text>
+      <Text style={styles.details}>{props.name.puntuacion}</Text>
+        <View style={styles.stars}>
+         {renderStars(Number(props.name.puntuacion))} 
+        </View>
+       <Button title="Cerrar" onPress={() => setModalVisible(false)} />
+    </Modal>
+
     </View>
 
   )
