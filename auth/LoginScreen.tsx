@@ -1,19 +1,30 @@
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
 import React, { useState } from 'react'
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../config/ConfigScreen';
 
 export default function LoginScreen({navigation}:any) {
 
   const[email, setEmail]= useState('');
   const[password, setPassword]=useState('');
 
-  const handleLogin= async()=>{
-    try{
-      // aqui debemos coolocar la autentificacion de firebase
-      console.log("iniciar sescion con:", email,  password);
-    }catch(error){
-      console.error("Error al iniciar sesion",error);
-    }
-  };
+  function LoginAuth(){
+    signInWithEmailAndPassword(auth, email, password)
+  .then((userCredential) => {
+   
+    const user = userCredential.user;
+    navigation.navigate("MyTab");
+ 
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+  });
+
+  }
+
+
+ 
 
   return (
     <View style={styles.container}>
@@ -35,11 +46,11 @@ export default function LoginScreen({navigation}:any) {
       secureTextEntry
       />
 
-    <TouchableOpacity style={styles.button} onPress={handleLogin}>
+    <TouchableOpacity style={styles.button} onPress={()=>LoginAuth()}>
      <Text style={styles.registerText}>Entrar</Text>
     </TouchableOpacity>
 
-    <TouchableOpacity onPress={()=>navigation.navigate("Register")}>
+    <TouchableOpacity onPress={()=>navigation.navigate("register")}>
       <Text style={styles.registerText}>¿No tienes cuna cuenta? Registrate</Text>
     </TouchableOpacity>
 
