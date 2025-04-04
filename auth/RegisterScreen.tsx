@@ -7,17 +7,12 @@ export default function RegisterScreen({navigation}:any) {
   const[email, setEmail]= useState('');
   const[password, setPassword]=useState('');
 
+  function Register(){
+    
+  }
 
- 
-   const handleLogin= async()=>{
-     try{
-       // aqui debemos coolocar la autentificacion de firebase
-       console.log("iniciar sescion con:", email,  password);
-     }catch(error){
-       console.error("Error al iniciar sesion",error);
-     }
-   };
- 
+
+
    return (
      <View style={styles.container}>
        <Text style={styles.title}>Crear Cuenta</Text>
@@ -30,25 +25,7 @@ export default function RegisterScreen({navigation}:any) {
        autoCapitalize="none"
        keyboardType='email-address'
        />
-       <TextInput
-       style={styles.input}
-       placeholder="Nombre de Usuario"
-       value={email}
-       onChangeText={setEmail}
-       autoCapitalize="none"
-       keyboardType='email-address'
-       />
-
-       <TextInput
-       style={styles.input}
-       placeholder="Fecha de Nacimiento"
-       value={email}
-       onChangeText={setEmail}
-       autoCapitalize="none"
-       keyboardType='email-address'
-       />
-
-
+      
        <TextInput
        style={styles.input}
        placeholder='Contraseña'
@@ -56,20 +33,20 @@ export default function RegisterScreen({navigation}:any) {
        onChangeText={setPassword}
        secureTextEntry
        />
-          <TextInput
+          {/* <TextInput
        style={styles.input}
        placeholder='Confirmar Contraseña'
        value={password}
        onChangeText={setPassword}
        secureTextEntry
-       />
+       /> */}
  
-     <TouchableOpacity style={styles.button} onPress={handleLogin}>
-      <Text style={styles.registerText}>Entrar</Text>
+     <TouchableOpacity style={styles.button} >
+      <Text style={styles.registerText}>Registrar</Text>
      </TouchableOpacity>
-     <TouchableOpacity style={styles.button} onPress={handleLogin}>
-      <Text style={styles.registerText}>Cancelar</Text>
-     </TouchableOpacity>
+      <TouchableOpacity onPress={()=>navigation.navigate("login")}>
+          <Text style={styles.registerText}>¿Ya tengo una cuenta? Iniciar Sesión</Text>
+        </TouchableOpacity>
      </View>
    )
  }
@@ -108,7 +85,7 @@ export default function RegisterScreen({navigation}:any) {
  
  button:{
  width:'100%',
- height:50,
+ height:59,
  backgroundColor:'#007bff',
  borderRadius:8,
  justifyContent:'center',

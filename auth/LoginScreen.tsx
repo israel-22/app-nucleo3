@@ -39,7 +39,7 @@ export default function LoginScreen({navigation}:any) {
      <Text style={styles.registerText}>Entrar</Text>
     </TouchableOpacity>
 
-    <TouchableOpacity onPress={()=>navigation.navigate("Register")}>
+    <TouchableOpacity onPress={()=>navigation.navigate("register")}>
       <Text style={styles.registerText}>¿No tienes cuna cuenta? Registrate</Text>
     </TouchableOpacity>
 
