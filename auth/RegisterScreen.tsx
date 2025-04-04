@@ -1,5 +1,7 @@
 import { Platform, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import React, { useState } from 'react'
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../config/ConfigScreen';
 
 
 
@@ -8,6 +10,18 @@ export default function RegisterScreen({navigation}:any) {
   const[password, setPassword]=useState('');
 
   function Register(){
+    createUserWithEmailAndPassword(auth, email, password)
+  .then((userCredential) => {
+  
+    const user = userCredential.user;
+    navigation.navigate("login");
+
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+   
+  });
     
   }
 
@@ -41,7 +55,7 @@ export default function RegisterScreen({navigation}:any) {
        secureTextEntry
        /> */}
  
-     <TouchableOpacity style={styles.button} >
+     <TouchableOpacity style={styles.button} onPress={()=> Register()} >
       <Text style={styles.registerText}>Registrar</Text>
      </TouchableOpacity>
       <TouchableOpacity onPress={()=>navigation.navigate("login")}>
