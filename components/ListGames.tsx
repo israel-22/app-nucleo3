@@ -1,6 +1,7 @@
 import { Button, Image, Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useState } from 'react'
 import { Ionicons } from '@expo/vector-icons';
+import { TextInput } from 'react-native-gesture-handler';
 
 export default function ListGames( props:any) {
 
@@ -65,6 +66,7 @@ export default function ListGames( props:any) {
       <Text style={styles.details}>codigo :{props.name.id}</Text>
       <Text style={styles.title}>{props.name.titulo}</Text>
       <Text style={styles.details}>🎮{props.name.plataforma}</Text>
+      <Text style={styles.details}>💰{props.name.precio} USD</Text>
       <Text style={styles.details}>📅 {props.name.lanzamiento}</Text>
 
       <View style={styles.ratingContainer}>
@@ -78,19 +80,27 @@ export default function ListGames( props:any) {
       </View>
     </TouchableOpacity>
       
-    <Modal visible={modalVisible}>
-     <Text>Hola soy modal</Text>
-     <Image source={{ uri: props.name.imagen }} style={styles.img}/>
-      <Text style={styles.details}>codigo :{props.name.id}</Text>
-      <Text style={styles.title}>{props.name.titulo}</Text>
-      <Text style={styles.details}>🎮{props.name.plataforma}</Text>
-      <Text style={styles.details}>📅 {props.name.lanzamiento}</Text>
-      <Text style={styles.details}>{props.name.puntuacion}</Text>
-        <View style={styles.stars}>
-         {renderStars(Number(props.name.puntuacion))} 
-        </View>
-       <Button title="Cerrar" onPress={() => setModalVisible(false)} />
-    </Modal>
+    <Modal visible={modalVisible} transparent={true} animationType="fade">
+  <View style={styles.modalBackdrop}>
+    <View style={styles.modalCard}>
+      <Image source={{ uri: props.name.imagen }} style={styles.modalImage} />
+      <Text style={styles.modalTitle}>{props.name.titulo}</Text>
+      <Text style={styles.modalDetail}>📌 Código: {props.name.id}</Text>
+      <Text style={styles.modalDetail}>🎮 Plataforma: {props.name.plataforma}</Text>
+      <Text style={styles.modalDetail}>💰 Precio: {props.name.precio} USD</Text>
+      <Text style={styles.modalDetail}>📅 Lanzamiento: {props.name.lanzamiento}</Text>
+      <Text style={styles.modalDetail}>⭐ Puntuación: {props.name.puntuacion}</Text>
+
+      <View style={styles.stars}>
+        {renderStars(Number(props.name.puntuacion))}
+      </View>
+
+      <TouchableOpacity style={styles.closeButton} onPress={() => setModalVisible(false)}>
+        <Text style={styles.closeButtonText}>Cerrar</Text>
+      </TouchableOpacity>
+    </View>
+  </View>
+</Modal>
 
     </View>
 
@@ -156,5 +166,55 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
     marginTop: 5,
 
+    },
+    modalBackdrop: {
+      flex: 1,
+      backgroundColor: 'rgba(0, 0, 0, 0.5)', // Fondo oscuro
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    modalCard: {
+      width: '85%',
+      backgroundColor: '#fff',
+      borderRadius: 20,
+      padding: 20,
+      alignItems: 'center',
+      elevation: 10,
+      shadowColor: '#000',
+      shadowOpacity: 0.25,
+      shadowOffset: { width: 0, height: 4 },
+      shadowRadius: 6,
+    },
+    modalImage: {
+      width: 150,
+      height: 150,
+      borderRadius: 10,
+      marginBottom: 15,
+    },
+    modalTitle: {
+      fontSize: 20,
+      fontWeight: 'bold',
+      color: '#333',
+      marginBottom: 10,
+      textAlign: 'center',
+    },
+    modalDetail: {
+      fontSize: 16,
+      color: '#555',
+      marginBottom: 5,
+      textAlign: 'center',
+    },
+
+    closeButton: {
+      backgroundColor: '#007bff',
+      paddingVertical: 10,
+      paddingHorizontal: 25,
+      borderRadius: 10,
+      marginTop: 10,
+    },
+    closeButtonText: {
+      color: '#fff',
+      fontWeight: 'bold',
+      fontSize: 16,
     },
 })
