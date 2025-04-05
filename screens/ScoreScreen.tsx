@@ -73,15 +73,42 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 10,
+    backgroundColor: '#1c1c2e', // fondo oscuro elegante
   },
+
   totalScore: {
-    fontSize: 20,
+    fontSize: 22,
     fontWeight: 'bold',
     marginBottom: 20,
+    color: '#00ffe0',
+    textAlign: 'center',
+    fontFamily: 'Courier New',
+    textShadowColor: '#00ffe0',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 5,
   },
+
   item: {
+    flex: 1,
+    flexDirection: 'row',
+    backgroundColor: '#1c1c2e', // fondo oscuro elegante
     padding: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ccc',
+    marginVertical: 5,
+    marginHorizontal: 10,
+    borderRadius: 12,
+    shadowColor: '#00ffe0',
+    shadowOpacity: 0.4,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 6,
+    elevation: 5,
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#00ffe0',
   },
+
+  itemText: {
+    fontSize: 16,
+    color: '#1c1c2e',
+    fontFamily: 'Courier New',
+  }
 });

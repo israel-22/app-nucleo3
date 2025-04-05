@@ -89,22 +89,46 @@ const styles = StyleSheet.create({
     height: 68,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#f8f8f8',
+    backgroundColor: '#1a1a2e', // Fondo oscuro
     elevation: 6,
     top: 42,
+    borderBottomWidth: 2,
+    borderBottomColor: '#00ffe0', // Borde neón
+    shadowColor: '#0ff',
+    shadowOpacity: 0.3,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 4,
   },
+
   headerText: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: '#333',
+    color: '#00ffe0', // Neón
+    fontFamily: 'Courier New',
+    textShadowColor: '#0ff',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 4,
   },
+
   btn: {
-    padding: 5,
-    backgroundColor: 'red',
+    paddingVertical: 6,
+    paddingHorizontal: 12,
+    backgroundColor: '#ff0055', // Rojo neón
     borderRadius: 10,
+    marginTop: 10,
+    shadowColor: '#ff0055',
+    shadowOpacity: 0.4,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 6,
+    elevation: 6,
   },
+
   closetext: {
-    color: 'white',
+    color: '#fff',
     fontWeight: 'bold',
+    fontFamily: 'Courier New',
+    textShadowColor: '#ff69b4',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 3,
   },
 });

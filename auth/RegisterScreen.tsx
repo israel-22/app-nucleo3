@@ -66,62 +66,70 @@ export default function RegisterScreen({navigation}:any) {
  }
  
  const styles = StyleSheet.create({
- 
- container:{
- flex:1,
- justifyContent:'center',
- alignItems:'center',
- backgroundColor:'#f5f5f5',
- padding:20
- 
- },
- 
- title:{
- fontSize:28,
- fontWeight:'bold',
- marginBottom:20,
- color:"#333"
- },
- 
- input:{
-   width:'100%',
-   height:50,
-   backgroundColor:'#fff',
-   borderRadius:8,
-   paddingHorizontal:15,
-   marginBottom:15,
-   shadowColor: "#000",
-   shadowOpacity:0.1,
-   shadowOffset: {width:0, height: 2},
-   shadowRadius:4,
-   elevation:3
- },
- 
- button:{
- width:'100%',
- height:59,
- backgroundColor:'#007bff',
- borderRadius:8,
- justifyContent:'center',
- alignItems:'center',
- shadowColor: "#000",
- shadowOpacity:0.2,
- shadowOffset: {width:0, height: 2},
- shadowRadius:4,
- elevation:3,
- padding:10,
- marginTop:20
- },
- 
- buttonText:{
-   fontSize:18,
-   color:'#fff',
-   fontWeight:'bold',
- },
- 
- registerText:{
- marginTop:20,
- color:'black',
- fontSize:14,
- },
- });
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#0d0d1a', // Fondo oscuro tipo sci-fi
+    padding: 20,
+  },
+
+  title: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    marginBottom: 20,
+    color: '#00ffe0', // Neón azul-verde
+    fontFamily: 'Courier New', // Tipografía tipo consola
+    textShadowColor: '#0ff',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 5,
+  },
+
+  input: {
+    width: '100%',
+    height: 50,
+    backgroundColor: '#ffffff',
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#00ffe0',
+    paddingHorizontal: 15,
+    marginBottom: 15,
+    color:  '#1a1a2e', // Letras blancas
+    fontFamily: 'Courier New',
+    shadowColor: '#0ff',
+    shadowOpacity: 0.3,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 6,
+    elevation: 5,
+  },
+
+  button: {
+    width: '100%',
+    height: 59,
+    backgroundColor: '#00ffe0',
+    borderRadius: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
+    shadowColor: '#0ff',
+    shadowOpacity: 0.4,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 6,
+    elevation: 6,
+    padding: 10,
+    marginTop: 20,
+  },
+
+  buttonText: {
+    fontSize: 18,
+    color: '#000', // Contraste con el botón neón
+    fontWeight: 'bold',
+    fontFamily: 'Courier New',
+  },
+
+  registerText: {
+    marginTop: 20,
+    color: '#000',
+    fontSize: 14,
+    fontFamily: 'Courier New',
+  },
+});

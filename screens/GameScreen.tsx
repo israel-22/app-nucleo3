@@ -18,8 +18,8 @@ useEffect(() => {
 }, []);
 
   return (
-    <View>
-      <Text>Juegos</Text>
+    <View style={styles.container}>
+      <Text style={styles.title}>Juegos</Text>
     <FlatList
       data={data}
       renderItem={({item})=> 
@@ -32,4 +32,23 @@ useEffect(() => {
   )
 }
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  container:{
+  
+    backgroundColor:'rgb(78, 78, 89)',
+    flex: 1,
+
+  },
+
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#00ffe0',
+    marginBottom: 10,
+    textAlign: 'center',
+    fontFamily: 'Courier New',
+    textShadowColor: 'rgba(0, 0, 0, 0.8)',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 4,
+  },
+})

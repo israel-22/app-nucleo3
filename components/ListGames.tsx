@@ -80,9 +80,9 @@ function authActive(){
       <Text style={styles.modalDetail}>🎮 Plataforma: {props.name.plataforma}</Text>
       <Text style={styles.modalDetail}>💰 Precio: {props.name.precio} USD</Text>
       <Text style={styles.modalDetail}>📅 Lanzamiento: {props.name.lanzamiento}</Text>
-      <TextInput onChangeText={(text) => setid(text) } value={id} editable={false}/>
-      <Text> Puntuacion:</Text>
-      <TextInput placeholder='Ingrese su puntuacion' onChangeText={(text)=> setpuntuacion(+text)} value ={puntuacion.toString()}/>
+      <TextInput style={styles.modalDetail} onChangeText={(text) => setid(text) } value={id} editable={false}/>
+      <Text style={styles.modalDetail}> Puntuacion:</Text>
+      <TextInput style={styles.modalDetail} placeholder='Ingrese su puntuacion' onChangeText={(text)=> setpuntuacion(+text)} value ={puntuacion.toString()}/>
 
       <TouchableOpacity style={styles.closeButton} onPress={()=> Save()}>
         <Text style={styles.closeButtonText}>Guardar</Text>
@@ -100,113 +100,139 @@ function authActive(){
 }
 
 const styles = StyleSheet.create({
-  container:{
+  container: {
     flex: 1,
     flexDirection: 'row',
-    backgroundColor: '#fff',
-    padding:10,
-    marginVertical:5,
-    marginHorizontal:10,
-    borderRadius:10,
-    shadowColor: "#000",
-    shadowOpacity:0.2,
-    shadowOffset: {width:0, height: 2},
-    shadowRadius:4,
-    elevation:3,
+    backgroundColor: '#1c1c2e', // fondo oscuro elegante
+    padding: 10,
+    marginVertical: 5,
+    marginHorizontal: 10,
+    borderRadius: 12,
+    shadowColor: '#00ffe0',
+    shadowOpacity: 0.4,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 6,
+    elevation: 5,
     alignItems: 'center',
-    
+    borderWidth: 1,
+    borderColor: '#00ffe0',
   },
-    img:{
-      width: 100,
-      height: 100,
-      borderRadius: 10
-    },
-    infoContainer:{
-      marginLeft: 10,
-      flex: 1
 
-    },
-    title:{
-     fontSize:18,
-     fontWeight: 'bold',
-     color: '#666'
-    },
-    details:{
-     fontSize:14,
-     color: '#666',
-     marginTop: 5
+  img: {
+    width: 100,
+    height: 100,
+    borderRadius: 12,
+    borderWidth: 2,
+    borderColor: '#00ffe0',
+  },
 
-    },
-    ratingContainer:{
-      flexDirection: 'row',
-      alignItems: 'center',
-      marginTop: 5
+  infoContainer: {
+    marginLeft: 10,
+    flex: 1,
+  },
 
-    },
-    stars:{
+  title: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#00ffe0',
+    fontFamily: 'Courier New',
+  },
+
+  details: {
+    fontSize: 14,
+    color: '#ccc',
+    marginTop: 5,
+    fontFamily: 'Courier New',
+  },
+
+  ratingContainer: {
     flexDirection: 'row',
-    marginLeft:5,
+    alignItems: 'center',
+    marginTop: 5,
+  },
 
-    },
-    genre:{
-    fontSize:12,
-    color: '#fff',
-    backgroundColor:'#007bff',
-    paddingHorizontal:8,
-    paddingVertical:4,
-    borderRadius:5,
+  stars: {
+    flexDirection: 'row',
+    marginLeft: 5,
+  },
+
+  genre: {
+    fontSize: 12,
+    color: '#000',
+    backgroundColor: '#0ff',
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 5,
     alignSelf: 'flex-start',
     marginTop: 5,
+    fontWeight: 'bold',
+    fontFamily: 'Courier New',
+  },
 
-    },
-    modalBackdrop: {
-      flex: 1,
-      backgroundColor: 'rgba(0, 0, 0, 0.5)', // Fondo oscuro
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
-    modalCard: {
-      width: '85%',
-      backgroundColor: '#fff',
-      borderRadius: 20,
-      padding: 20,
-      alignItems: 'center',
-      elevation: 10,
-      shadowColor: '#000',
-      shadowOpacity: 0.25,
-      shadowOffset: { width: 0, height: 4 },
-      shadowRadius: 6,
-    },
-    modalImage: {
-      width: 150,
-      height: 150,
-      borderRadius: 10,
-      marginBottom: 15,
-    },
-    modalTitle: {
-      fontSize: 20,
-      fontWeight: 'bold',
-      color: '#333',
-      marginBottom: 10,
-      textAlign: 'center',
-    },
-    modalDetail: {
-      fontSize: 16,
-      color: '#555',
-      marginBottom: 5,
-      textAlign: 'center',
-    },
+  modalBackdrop: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.8)', // más oscuro
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 
-    closeButton: {
-      backgroundColor: '#007bff',
-      paddingVertical: 10,
-      paddingHorizontal: 25,
-      borderRadius: 10,
-      marginTop: 10,
-    },
-    closeButtonText: {
-      color: '#fff',
-      fontWeight: 'bold',
-      fontSize: 16,
-    },
-})
+  modalCard: {
+    width: '85%',
+    backgroundColor: '#1a1a2e',
+    borderRadius: 20,
+    padding: 20,
+    alignItems: 'center',
+    elevation: 10,
+    borderWidth: 1,
+    borderColor: '#00ffe0',
+    shadowColor: '#00ffe0',
+    shadowOpacity: 0.6,
+    shadowOffset: { width: 0, height: 4 },
+    shadowRadius: 8,
+  },
+
+  modalImage: {
+    width: 150,
+    height: 150,
+    borderRadius: 10,
+    marginBottom: 15,
+    borderWidth: 2,
+    borderColor: '#0ff',
+  },
+
+  modalTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#00ffe0',
+    marginBottom: 10,
+    textAlign: 'center',
+    fontFamily: 'Courier New',
+  },
+
+  modalDetail: {
+    fontSize: 16,
+    color: '#ccc',
+    marginBottom: 5,
+    textAlign: 'center',
+    fontFamily: 'Courier New',
+  },
+
+  closeButton: {
+    backgroundColor: '#ff0055',
+    paddingVertical: 10,
+    paddingHorizontal: 25,
+    borderRadius: 10,
+    marginTop: 10,
+    shadowColor: '#ff0055',
+    shadowOpacity: 0.5,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 6,
+  },
+
+  closeButtonText: {
+    color: '#fff',
+    fontWeight: 'bold',
+    fontSize: 16,
+    fontFamily: 'Courier New',
+  },
+});
