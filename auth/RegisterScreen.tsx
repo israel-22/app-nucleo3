@@ -56,7 +56,7 @@ export default function RegisterScreen({navigation}:any) {
        /> */}
  
      <TouchableOpacity style={styles.button} onPress={()=> Register()} >
-      <Text style={styles.registerText}>Registrar</Text>
+      <Text style={styles.registerText2}>Registrar</Text>
      </TouchableOpacity>
       <TouchableOpacity onPress={()=>navigation.navigate("login")}>
           <Text style={styles.registerText}>¿Ya tengo una cuenta? Iniciar Sesión</Text>
@@ -128,7 +128,13 @@ export default function RegisterScreen({navigation}:any) {
 
   registerText: {
     marginTop: 20,
-    color: '#000',
+    color: 'white',
+    fontSize: 14,
+    fontFamily: 'Courier New',
+  },
+  registerText2: {
+    marginTop: 20,
+    color: '#888',
     fontSize: 14,
     fontFamily: 'Courier New',
   },
