@@ -1,10 +1,11 @@
-import { Button, Image, Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Alert, Button, Image, Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { Ionicons } from '@expo/vector-icons';
 import { TextInput } from 'react-native-gesture-handler';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth, db } from '../config/ConfigScreen';
-import { ref, set } from 'firebase/database';
+import { get, push, ref, set } from 'firebase/database';
+import { format } from 'date-fns';
 
 export default function ListGames( props:any) {
 
@@ -12,15 +13,24 @@ export default function ListGames( props:any) {
   const [modalVisible, setModalVisible] = useState(false);
   const [nombre, setnombre] = useState("");
   const [puntuacion, setpuntuacion] = useState(0);
+  const [score, setscore] = useState(0);
   
   
   function Save() {
-    set(ref(db, 'usuarios/' + id + '/scores/'), {
+    const idScore=score+1;
+    const formatDate = format(new Date(),'yyyy-MM-dd');
+    const scoresRef = push(ref(db, 'usuarios/' + id + '/scores/'), {
       nombre: nombre,
       score: puntuacion,
-      date: Date.now()
+      date: formatDate
+  
     });
+  Alert.alert('Notificacion', 'Puntuacion Guardada');
+  setModalVisible(false);
+  setpuntuacion(0);
   }
+  
+
   useEffect(() => {
     setnombre(props.name.titulo);
   }, [props.name.titulo]);
@@ -33,69 +43,17 @@ function authActive(){
 
   onAuthStateChanged(auth, (user) => {
     if (user) {
-      // User is signed in, see docs for a list of available properties
-      // https://firebase.google.com/docs/reference/js/auth.user
+      
       const uid = user.uid;
-      setid(uid);
-      console.log(uid);
-      // ...
+      setid(uid);  
     } else {
-      // User is signed out
-      // ...
+    
     }
   });
   
 }
 
-  // Función para calcular el promedio de puntuaciones
-  const getAverageRating = (opiniones: any) => {
-    let totalPuntos = 0;
-    let totalResenias = 0;
-
-    if (opiniones.opiniones_positivas) {
-      opiniones.opiniones_positivas.detalles.forEach((opinion: any) => {
-        totalPuntos += opinion.detalles_usuario.puntuacion;
-        totalResenias++;
-      });
-    }
-
-    if (opiniones.opiniones_negativas) {
-      opiniones.opiniones_negativas.detalles.forEach((opinion: any) => {
-        totalPuntos += opinion.detalles_usuario.puntuacion;
-        totalResenias++;
-      });
-    }
-
-    return totalResenias > 0 ? totalPuntos / totalResenias : 0; 
-  };
-
-  const averageRating = getAverageRating(props.name.opiniones);
-
-  // Función para renderizar estrellas
-  const renderStars = (rating: number) => {
-    if (!rating || isNaN(rating)) return <Text style={{ color: '#ccc' }}>Sin calificación</Text>; 
-
-    const stars = [];
-    const roundedRating = Math.round(rating * 10) / 10;
-    const fullStars = Math.floor(roundedRating);
-    const hasHalfStar = roundedRating - fullStars >= 0.5;
-    const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
-
-    for (let i = 0; i < fullStars; i++) {
-      stars.push(<Ionicons key={`full-${i}`} name="star" size={20} color="#FFD700" />);
-    }
-
-    if (hasHalfStar) {
-      stars.push(<Ionicons key="half" name="star-half" size={20} color="#FFD700" />);
-    }
-
-    for (let i = 0; i < emptyStars; i++) {
-      stars.push(<Ionicons key={`empty-${i}`} name="star-outline" size={20} color="#ccc" />);
-    }
-
-    return stars;
-  };
-
+  
 
   return (
     <View style={styles.container} >
@@ -108,14 +66,6 @@ function authActive(){
       <Text style={styles.details}>🎮{props.name.plataforma}</Text>
       <Text style={styles.details}>💰{props.name.precio} USD</Text>
       <Text style={styles.details}>📅 {props.name.lanzamiento}</Text>
-
-      <View style={styles.ratingContainer}>
-        <Text style={styles.details}>{props.name.puntuacion}</Text>
-        <View style={styles.stars}>
-         {renderStars(Number(props.name.puntuacion))} 
-      </View>
-</View>
-
       <Text style={styles.genre}>{props.name.genero}</Text>
       </View>
     </TouchableOpacity>
