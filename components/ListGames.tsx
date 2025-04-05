@@ -3,13 +3,25 @@ import React, { useEffect, useState } from 'react'
 import { Ionicons } from '@expo/vector-icons';
 import { TextInput } from 'react-native-gesture-handler';
 import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from '../config/ConfigScreen';
+import { auth, db } from '../config/ConfigScreen';
+import { ref, set } from 'firebase/database';
 
 export default function ListGames( props:any) {
 
   const [id, setid] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
+  const [nombre, setnombre] = useState("");
+  const [puntuacion, setpuntuacion] = useState(0);
+  setnombre(props.name.titulo);
 
+
+  function Save() {
+    set(ref(db, 'usuarios/' + id + '/scores/'), {
+      nombre: nombre,
+     score: puntuacion,
+      date: Date.now()
+    });
+  }
  useEffect(() => {
     authActive();
   }, []);
@@ -109,14 +121,15 @@ function authActive(){
     <View style={styles.modalBackdrop}>
     <View style={styles.modalCard}>
       <Image source={{ uri: props.name.imagen }} style={styles.modalImage} />
-      <Text style={styles.modalTitle}>{props.name.titulo}</Text>
+      <Text style={styles.modalTitle} >{props.name.titulo}</Text>
       <Text style={styles.modalDetail}>📌 Código: {props.name.id}</Text>
       <Text style={styles.modalDetail}>🎮 Plataforma: {props.name.plataforma}</Text>
       <Text style={styles.modalDetail}>💰 Precio: {props.name.precio} USD</Text>
       <Text style={styles.modalDetail}>📅 Lanzamiento: {props.name.lanzamiento}</Text>
-      <Text style={styles.modalDetail}>⭐ Puntuación: {props.name.puntuacion}</Text>
       <TextInput onChangeText={(text) => setid(text) } value={id} editable={false}/>
-
+      <Text> Puntuacion:</Text>
+      <TextInput placeholder='Ingrese su puntuacion' onChangeText={(text)=> setpuntuacion(+text)} value ={puntuacion.toString()}/>
+        <Button title='Guardar' onPress={()=> Save()}/>
       <View style={styles.stars}>
         {renderStars(Number(props.name.puntuacion))}
       </View>
