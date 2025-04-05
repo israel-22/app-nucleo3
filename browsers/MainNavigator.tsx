@@ -17,8 +17,8 @@ type RootStackParamList = {
 };
 
 type MyTabParamList = {
-  'Bienvenido': undefined;
-  'Página': undefined;
+  'Juegos': undefined;
+  'Puntuación': undefined;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -49,8 +49,8 @@ function MyStack() {
 function MyTab() {
   return (
     <Tab.Navigator>
-      <Tab.Screen name="Bienvenido" component={GameScreen} />
-      <Tab.Screen name="Página" component={ScoreScreen} />
+      <Tab.Screen name="Juegos" component={GameScreen} />
+      <Tab.Screen name="Puntuación" component={ScoreScreen} />
     </Tab.Navigator>
   );
 }

@@ -19,7 +19,7 @@ useEffect(() => {
 
   return (
     <View>
-      <Text>Menu</Text>
+      <Text>Juegos</Text>
     <FlatList
       data={data}
       renderItem={({item})=> 
