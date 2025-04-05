@@ -15,6 +15,7 @@ export default function ListGames( props:any) {
   
   
   function Save() {
+    const formatDate = format(new Date(),'yyyy-MM-dd HH:mm:ss')
     set(ref(db, 'usuarios/' + id + '/scores/'), {
       nombre: nombre,
       score: puntuacion,
