@@ -12,18 +12,22 @@ export default function ListGames( props:any) {
   const [modalVisible, setModalVisible] = useState(false);
   const [nombre, setnombre] = useState("");
   const [puntuacion, setpuntuacion] = useState(0);
-  setnombre(props.name.titulo);
-
-
+  
+  
   function Save() {
     set(ref(db, 'usuarios/' + id + '/scores/'), {
       nombre: nombre,
-     score: puntuacion,
+      score: puntuacion,
       date: Date.now()
     });
   }
- useEffect(() => {
+  useEffect(() => {
+    setnombre(props.name.titulo);
+  }, [props.name.titulo]);
+
+  useEffect(() => {
     authActive();
+   
   }, []);
 function authActive(){
 
@@ -130,10 +134,6 @@ function authActive(){
       <Text> Puntuacion:</Text>
       <TextInput placeholder='Ingrese su puntuacion' onChangeText={(text)=> setpuntuacion(+text)} value ={puntuacion.toString()}/>
         <Button title='Guardar' onPress={()=> Save()}/>
-      <View style={styles.stars}>
-        {renderStars(Number(props.name.puntuacion))}
-      </View>
-
       <TouchableOpacity style={styles.closeButton} onPress={() => setModalVisible(false)}>
         <Text style={styles.closeButtonText}>Cerrar</Text>
       </TouchableOpacity>
