@@ -1,11 +1,35 @@
 import { Button, Image, Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Ionicons } from '@expo/vector-icons';
 import { TextInput } from 'react-native-gesture-handler';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from '../config/ConfigScreen';
 
 export default function ListGames( props:any) {
 
+  const [id, setid] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
+
+ useEffect(() => {
+    authActive();
+  }, []);
+function authActive(){
+
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      // User is signed in, see docs for a list of available properties
+      // https://firebase.google.com/docs/reference/js/auth.user
+      const uid = user.uid;
+      setid(uid);
+      console.log(uid);
+      // ...
+    } else {
+      // User is signed out
+      // ...
+    }
+  });
+  
+}
 
   // Función para calcular el promedio de puntuaciones
   const getAverageRating = (opiniones: any) => {
@@ -81,7 +105,8 @@ export default function ListGames( props:any) {
     </TouchableOpacity>
       
     <Modal visible={modalVisible} transparent={true} animationType="fade">
-  <View style={styles.modalBackdrop}>
+    
+    <View style={styles.modalBackdrop}>
     <View style={styles.modalCard}>
       <Image source={{ uri: props.name.imagen }} style={styles.modalImage} />
       <Text style={styles.modalTitle}>{props.name.titulo}</Text>
@@ -90,6 +115,7 @@ export default function ListGames( props:any) {
       <Text style={styles.modalDetail}>💰 Precio: {props.name.precio} USD</Text>
       <Text style={styles.modalDetail}>📅 Lanzamiento: {props.name.lanzamiento}</Text>
       <Text style={styles.modalDetail}>⭐ Puntuación: {props.name.puntuacion}</Text>
+      <TextInput onChangeText={(text) => setid(text) } value={id} editable={false}/>
 
       <View style={styles.stars}>
         {renderStars(Number(props.name.puntuacion))}
